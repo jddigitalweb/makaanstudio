@@ -1134,7 +1134,7 @@
     #founder-krisha {
       display: block;
       background: var(--bg);
-      overflow: hidden;
+      overflow-x: hidden;
       padding: 0;
     }
 
@@ -1505,6 +1505,8 @@
       background: var(--white);
       border-radius: 24px;
       padding: 44px 40px;
+      max-width: 100%;
+      box-sizing: border-box;
       box-shadow:
         0 2px 4px rgba(0,0,0,0.04),
         0 8px 24px rgba(0,0,0,0.07),
@@ -1689,7 +1691,6 @@
       .process-flow { gap: 24px; }
 
       /* Process interactive */
-      .pi-steps    { min-height: 440px; }
       .pi-title    { font-size: clamp(1.7rem, 2.6vw, 2.6rem); }
 
       /* About image */
@@ -1704,28 +1705,60 @@
 
     }
 
-    /* ─── MOBILE ──────────────────────────────────────────────── */
+    /* ─── MOBILE (≤ 900px) ───────────────────────────────────── */
     @media (max-width: 900px) {
       :root { --gutter: 48px; }
       header { padding: 20px var(--gutter); }
       .nav-links { display: none; }
       .nav-cta { display: none; }
-      .hero-inner { padding: 100px var(--gutter) 56px; }
-      .hero-title { font-size: clamp(2.2rem, 9vw, 4rem); }
-      .hero-inner { padding: 100px 24px 0; }
 
-      /* Services: stay 2x2 on tablet */
-      .svc-grid { gap: 10px; }
+      /* Hero */
+      .hero-inner { padding: 100px var(--gutter) 56px; }
+      .hero-title  { font-size: clamp(2.2rem, 9vw, 4rem); }
+
+      /* About */
+      #about { grid-template-columns: 1fr; gap: 40px; }
+      .about-img { height: 360px; }
+
+      /* Services */
+      .svc-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+
+      /* Process interactive */
+      .pi-body { grid-template-columns: 1fr; gap: 40px; }
+      .pi-steps { height: auto; overflow: visible; contain: none; }
+      .pi-right { display: none; }
+
+      /* Founders */
+      .fk-wordmark { font-size: clamp(4rem, 12vw, 7rem); }
+      .fk-stage { grid-template-columns: 1fr; gap: 32px; margin-top: -16px; }
+      .fk-intro { padding: 0; }
+      .fk-bios  { grid-template-columns: 1fr; gap: 40px; padding: 48px var(--gutter) 64px; }
+
+      /* Testimonials */
+      .testi-grid { grid-template-columns: 1fr; }
+      .testi-image { display: none; }
+
+      /* Enquiry */
+      #enquiry { grid-template-columns: 1fr; gap: 48px; }
     }
 
+    /* ─── SMALL MOBILE (≤ 560px) ─────────────────────────────── */
     @media (max-width: 560px) {
       :root { --gutter: 24px; }
       header { padding: 18px var(--gutter); }
       .hero-inner { padding: 90px var(--gutter) 48px; }
 
-      /* Services: single column on small mobile */
+      /* Services: single column */
       .svc-grid { grid-template-columns: 1fr; gap: 10px; }
       .svc-tile { padding: 24px 20px; }
+
+      /* Founders */
+      .fk-wordmark { font-size: clamp(3rem, 10vw, 5rem); }
+      .fk-bios { gap: 32px; padding: 36px var(--gutter) 48px; }
+
+      /* Enquiry */
+      .enq-card { padding: 28px 20px; }
+      .enq-field-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
