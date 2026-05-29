@@ -133,6 +133,18 @@
 
     header.scrolled .nav-links a       { color: rgba(45,43,41,0.58); }
     header.scrolled .nav-links a:hover { color: var(--charcoal); }
+    header.scrolled .nav-cta {
+      color: var(--orange);
+      background: transparent;
+      border-color: rgba(200,98,42,0.4);
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+    header.scrolled .nav-cta:hover {
+      background: var(--orange);
+      color: var(--white);
+      border-color: var(--orange);
+    }
 
     /* Nav CTA */
     .nav-cta {
@@ -140,21 +152,25 @@
       align-items: center;
       gap: 8px;
       justify-self: end;
-      font-size: 0.575rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
       color: var(--white);
-      background: var(--orange);
-      border: none;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.28);
       border-radius: 100px;
       padding: 12px 28px;
       white-space: nowrap;
       transition: background 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                  color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
                   transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
     }
     .nav-cta:hover {
-      background: #a84e20;
+      background: rgba(255,255,255,0.22);
+      border-color: rgba(255,255,255,0.5);
       transform: translateY(-1px);
     }
     .nav-cta:active { transform: translateY(0); }
@@ -368,12 +384,11 @@
     }
 
     .about-heading {
-      font-family: 'Jost', sans-serif;
-      font-size: clamp(1.95rem, 2.6vw, 3.05rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 3.2vw, 3.8rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
       color: var(--dark);
       margin-bottom: 28px;
     }
@@ -403,20 +418,13 @@
       gap: 8px;
       margin-top: 36px;
       font-family: 'Jost', sans-serif;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--white);
-      background: var(--orange);
-      padding: 12px 28px;
-      border-radius: 100px;
-      white-space: nowrap;
-      transition: background 0.25s cubic-bezier(0.22, 1, 0.36, 1),
-                  transform 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+      color: var(--orange);
     }
-    .about-cta:hover { background: #a84e20; transform: translateY(-1px); }
-    .about-cta:active { transform: translateY(0); }
+    .about-cta:hover { color: var(--charcoal); }
 
     .about-col-image {
       display: flex;
@@ -510,6 +518,7 @@
       text-transform: uppercase;
       color: var(--mid);
       margin-bottom: 44px;
+      margin-left: 6px;
       display: block;
     }
 
@@ -544,7 +553,7 @@
       color: var(--mid);
       line-height: 1.9;
       letter-spacing: 0.01em;
-      max-width: 720px;
+      max-width: 1100px;
       margin-top: 36px;
     }
 
@@ -565,20 +574,16 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--white);
-      background: var(--orange);
-      border-radius: 100px;
-      padding: 6px 16px;
-      margin-bottom: 20px;
+      color: var(--orange);
+      margin-bottom: 12px;
     }
 
     .svc-heading {
-      font-family: 'Jost', sans-serif;
-      font-size: clamp(1.95rem, 2.6vw, 3.05rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 3.2vw, 3.8rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
       color: var(--dark);
       margin-bottom: 16px;
     }
@@ -683,12 +688,11 @@
     }
 
     .projects-title {
-      font-family: 'Jost', sans-serif;
-      font-size: clamp(1.95rem, 2.6vw, 3.05rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 3.2vw, 3.8rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
       color: var(--dark);
       margin-bottom: 36px;
     }
@@ -1000,11 +1004,8 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--white);
-      background: var(--orange);
-      border-radius: 100px;
-      padding: 6px 16px;
-      margin-bottom: 24px;
+      color: var(--orange);
+      margin-bottom: 12px;
     }
 
     .pi-heading-row {
@@ -1015,11 +1016,11 @@
     }
 
     .pi-title {
-      font-family: 'Jost', sans-serif;
-      font-size: clamp(2rem, 3vw, 3.2rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.025em;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 3.4vw, 4rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
       color: var(--dark);
     }
 
@@ -1188,7 +1189,7 @@
 
     .fk-intro-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(1.6rem, 2.4vw, 2.8rem);
+      font-size: clamp(2rem, 3vw, 3.6rem);
       font-weight: 400;
       color: var(--dark);
       line-height: 1.1;
@@ -1268,20 +1269,16 @@
       font-weight: 600;
       letter-spacing: 0.1em;
       text-transform: uppercase;
-      color: var(--white);
-      background: var(--orange);
-      border-radius: 100px;
-      padding: 6px 16px;
-      margin-bottom: 18px;
+      color: var(--orange);
+      margin-bottom: 12px;
     }
 
     .testi-heading {
-      font-family: 'Jost', sans-serif;
-      font-size: clamp(1.95rem, 2.6vw, 3.05rem);
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-      text-transform: uppercase;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 3.2vw, 3.8rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
       color: var(--dark);
     }
 
@@ -1433,17 +1430,17 @@
     }
 
     .enq-heading {
-      font-family: 'Jost', sans-serif;
-      font-size: clamp(2rem, 3vw, 3.4rem);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.4rem, 3.4vw, 4rem);
       font-weight: 400;
-      line-height: 1.15;
-      letter-spacing: -0.025em;
+      line-height: 1.12;
+      letter-spacing: -0.01em;
       color: var(--dark);
       margin-bottom: 24px;
     }
 
     .enq-heading strong {
-      font-weight: 800;
+      font-weight: 700;
       display: block;
       color: var(--orange);
     }
@@ -1791,10 +1788,10 @@
 
     <div class="hero-inner">
       <div class="hero-content">
-        <p class="hero-label">Interior Architecture · Surat &nbsp;·&nbsp; Mumbai &nbsp;·&nbsp; Ahmedabad</p>
+        <p class="hero-label">Architecture Interior Studio</p>
         <h1 class="hero-title">Every space tells a story.<br><em>We shape how it feels.</em></h1>
         <p class="hero-sub">At Makaan Studio, from architecture to interiors, we create spaces that feel timeless, calm, and deeply human.</p>
-        <a href="#enquiry" class="hero-cta">Start an Enquiry →</a>
+        <a href="#enquiry" class="hero-cta">Start a Conversation →</a>
         <div class="hero-socials">
           <a href="#" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -1802,8 +1799,8 @@
           <a href="#" aria-label="WhatsApp">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
           </a>
-          <a href="#" aria-label="Pinterest">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.236 2.636 7.855 6.356 9.312-.088-.791-.167-2.005.035-2.868.181-.78 1.172-4.97 1.172-4.97s-.299-.598-.299-1.482c0-1.388.806-2.428 1.808-2.428.852 0 1.264.64 1.264 1.408 0 .858-.546 2.14-.828 3.33-.236.995.499 1.806 1.476 1.806 1.772 0 3.135-1.869 3.135-4.565 0-2.386-1.716-4.054-4.165-4.054-2.837 0-4.501 2.127-4.501 4.327 0 .856.33 1.774.741 2.276a.3.3 0 01.069.287c-.076.314-.244.995-.277 1.134-.044.183-.146.221-.337.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.966-.527-2.292-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.523 0 10-4.477 10-10S17.523 2 12 2z"/></svg>
+          <a href="#" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
         </div>
       </div>
@@ -1829,12 +1826,13 @@
       <h2 class="about-heading">About Us.</h2>
       <div class="about-body">
         <p>
-          Makaan Studio is an <span class="hi">architecture and interior design firm</span> based in Surat,
-          offering thoughtful design solutions across <span class="hi">architecture, interiors, urban design,
+          Makaan Studio is an <span class="hi">architecture and interior design firm</span><br>
+          based in Surat, offering thoughtful design solutions across <span class="hi">architecture, interiors, urban design,
           and interior styling</span> worldwide.
         </p>
         <p style="margin-top: 20px;">
-          Founded and led by two dynamic young female architects, <span class="hi">Ar. Krisha Ghelani</span>
+          Founded and led by two dynamic young female architects,<br>
+          <span class="hi">Ar. Krisha Ghelani</span>
           and <span class="hi">Ar. Anushree Bafna</span>, the studio is driven by a shared vision and passion
           for creating spaces that resonate with both <span class="hi">functionality and aesthetic brilliance</span>.
           Makaan Studio has carved a niche in the industry through its innovative designs, inclusive approach,
@@ -1905,13 +1903,13 @@
     <span class="phil-section-label">Our Philosophy</span>
     <p class="phil-quote">
       "<em>Luxury</em>, to us, is not excess.<br>
-      It is peace, comfort,<br>
-      and <em>belonging</em>."
+      It is peace, comfort, and <em>belonging</em>."
     </p>
     <div class="phil-divider"></div>
     <p class="phil-desc">
-      Softness in every surface. Stillness in every room. We believe a truly beautiful space
-      isn't one that impresses — it's one that makes you exhale the moment you walk in.
+      Softness in every surface. Stillness in every room.<br>
+      We believe a truly beautiful space
+      isn't one that impresses, it's one that makes you exhale the moment you walk in.<br>
       Every project we take on is a quiet pursuit of that feeling.
     </p>
   </section>
@@ -1993,7 +1991,7 @@
         <div class="svc-tile-inner">
           <div class="svc-icon"><i data-lucide="landmark"></i></div>
           <div class="svc-name">Architecture</div>
-          <p class="svc-desc">Thoughtful structures designed for site, people, and purpose — from residential homes to large-scale built environments.</p>
+          <p class="svc-desc">Designing thoughtful structures for site, people, and purpose, from residential homes to large-scale built environments.</p>
         </div>
       </div>
 
@@ -2002,7 +2000,7 @@
         <div class="svc-tile-inner">
           <div class="svc-icon"><i data-lucide="sofa"></i></div>
           <div class="svc-name">Interior Design</div>
-          <p class="svc-desc">Quiet, considered interiors shaped around how you live — with materials, light, and detail in careful harmony.</p>
+          <p class="svc-desc">Crafting meaningful interiors, from residences and workspaces to cafés, with a focus on comfort, functionality, and lasting aesthetics.</p>
         </div>
       </div>
 
@@ -2020,7 +2018,7 @@
         <div class="svc-tile-inner">
           <div class="svc-icon"><i data-lucide="sparkles"></i></div>
           <div class="svc-name">Interior Styling</div>
-          <p class="svc-desc">Curating the final layer — objects, textures, and light — that make a space feel whole, warm, and entirely yours.</p>
+          <p class="svc-desc">Layering spaces with textures, materials, and details that make them feel personal and lived in.</p>
         </div>
       </div>
 
@@ -2102,7 +2100,7 @@
       </div>
       <div class="fk-intro">
         <span class="fk-intro-title">Meet The Founders</span>
-        <p class="fk-intro-sub">Two architects. One shared vision.</p>
+        <p class="fk-intro-sub">Two Architects. One Shared Vision.</p>
       </div>
     </div>
 
