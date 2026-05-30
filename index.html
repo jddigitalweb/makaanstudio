@@ -8,7 +8,7 @@
   <link rel="preload" as="image" href="process/Discovery.jpeg">
   <link rel="preload" as="image" href="process/Design.webp">
   <link rel="preload" as="image" href="process/Site.webp">
-  <link rel="preload" as="image" href="philosophy/philosophy_main.webp">
+  <link rel="preload" as="image" href="philosophy/philosophy_main.jpg">
   <link rel="preload" as="image" href="philosophy/philosophy_1.webp">
   <link rel="preload" as="image" href="philosophy/philosophy_2.webp">
   <link rel="preload" as="image" href="philosophy/philosophy_3.webp">
@@ -1389,13 +1389,17 @@
       min-height: 300px;
     }
 
-    .testi-image img {
+    .testi-slide {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      opacity: 0;
+      transition: opacity 0.6s ease;
     }
+
+    .testi-slide--active { opacity: 1; }
 
     .testi-counter {
       position: absolute;
@@ -1808,7 +1812,7 @@
 
       <div class="hero-mini-card">
         <span class="hero-mini-counter">Selected Work</span>
-        <img src="philosophy/philosophy_main.webp" alt="Featured Project">
+        <img src="philosophy/philosophy_main.jpg" alt="Featured Project">
         <div class="hero-mini-body">
           <p>Our Portfolio</p>
           <a href="#projects">View Projects →</a>
@@ -1855,7 +1859,7 @@
 
       <div class="parallax-layer" data-max-scale="4">
         <div class="parallax-img-box">
-<img loading="eager" src="philosophy/philosophy_main.webp" alt="Philosophy">
+<img loading="eager" src="philosophy/philosophy_main.jpg" alt="Philosophy">
         </div>
       </div>
 
@@ -2047,7 +2051,7 @@
               <div class="pi-icon-wrap">01</div>
               <span class="pi-step-title">Discovery</span>
             </div>
-            <p class="pi-step-desc">We begin by listening — understanding the people, lifestyle, and emotions that will inhabit the space. Site visits and deep conversations help us map what the project truly needs before any design begins.</p>
+            <p class="pi-step-desc">We begin by listening and understanding the people, lifestyle, and emotions that will inhabit the space. Site visits and deep conversations help us map what the project truly needs before any design begins.</p>
           </div>
 
           <div class="pi-step" data-index="1">
@@ -2055,7 +2059,7 @@
               <div class="pi-icon-wrap">02</div>
               <span class="pi-step-title">Design Development</span>
             </div>
-            <p class="pi-step-desc">From spatial planning to material selection, we develop concepts that balance beauty with practicality. Every detail — from the flow of rooms to the texture of surfaces — is carefully considered and refined.</p>
+            <p class="pi-step-desc">From spatial planning to material selection, we develop concepts that balance beauty with practicality. Every detail starting from the flow of rooms to the texture of surfaces is carefully considered and refined.</p>
           </div>
 
           <div class="pi-step" data-index="2">
@@ -2071,7 +2075,7 @@
               <div class="pi-icon-wrap">04</div>
               <span class="pi-step-title">Styling &amp; Experience</span>
             </div>
-            <p class="pi-step-desc">The final layer is where a space truly comes alive. We curate furniture, objects, lighting, and textiles to complete the story — leaving a space that feels considered, warm, and entirely yours.</p>
+            <p class="pi-step-desc">The final layer is where a space truly comes alive. We curate furniture, objects, lighting, and textiles to complete the story and leave a space that feels considered, warm, and entirely yours.</p>
           </div>
 
         </div>
@@ -2161,7 +2165,9 @@
         </div>
       </div>
       <div class="testi-image">
-        <img src="testimonial_1.webp" alt="Project" loading="lazy" id="testiImg" style="transition: opacity 0.4s ease; opacity: 1;">
+        <img class="testi-slide testi-slide--active" src="testimonial_1.webp" alt="Project" data-index="0">
+        <img class="testi-slide" src="testimonial_2.jpeg" alt="Project" data-index="1">
+        <img class="testi-slide" src="testimonial_3.webp" alt="Project" data-index="2">
         <span class="testi-counter" id="testiCounter">1 / 3</span>
       </div>
     </div>
@@ -2198,41 +2204,56 @@
 
     <!-- Right: form card -->
     <div class="enq-card">
-      <form onsubmit="return false;">
+      <form id="enquiry-form">
+        <input type="hidden" name="access_key" value="e21c9983-424b-40af-afb7-5a84194d1d73">
+        <input type="hidden" name="subject" value="New Project Enquiry — Makaan Studio">
+        <input type="hidden" name="from_name" value="Makaan Studio Website">
+        <input type="checkbox" name="botcheck" style="display:none;">
 
         <div class="enq-field-row">
           <div class="enq-field">
             <label for="f-name">Name</label>
-            <input id="f-name" type="text" placeholder="Your full name">
+            <input id="f-name" name="Name" type="text" placeholder="Your full name" required>
           </div>
           <div class="enq-field">
             <label for="f-contact">Contact Number</label>
-            <input id="f-contact" type="tel" placeholder="+91 00000 00000">
+            <input id="f-contact" name="Contact Number" type="tel" placeholder="+91 00000 00000">
           </div>
         </div>
 
         <div class="enq-field-row">
           <div class="enq-field">
             <label for="f-location">Location</label>
-            <input id="f-location" type="text" placeholder="City or area">
+            <input id="f-location" name="Location" type="text" placeholder="City or area">
           </div>
           <div class="enq-field">
             <label for="f-type">Project Type</label>
-            <input id="f-type" type="text" placeholder="Residential, Commercial…">
+            <input id="f-type" name="Project Type" type="text" placeholder="Residential, Commercial…">
+          </div>
+        </div>
+
+        <div class="enq-field-row">
+          <div class="enq-field">
+            <label for="f-area">Project Area (sq ft)</label>
+            <input id="f-area" name="Project Area" type="text" placeholder="e.g. 1200, 2500">
+          </div>
+          <div class="enq-field">
+            <label for="f-budget">Estimated Budget</label>
+            <input id="f-budget" name="Estimated Budget" type="text" placeholder="e.g. ₹20–30 lakhs">
           </div>
         </div>
 
         <div class="enq-field">
           <label for="f-timeline">Estimated Timeline</label>
-          <input id="f-timeline" type="text" placeholder="e.g. 3–6 months, flexible">
+          <input id="f-timeline" name="Estimated Timeline" type="text" placeholder="e.g. 3–6 months, flexible">
         </div>
 
         <div class="enq-field">
           <label for="f-brief">Brief Requirement</label>
-          <textarea id="f-brief" placeholder="Tell us a little about your space and what you're envisioning…"></textarea>
+          <textarea id="f-brief" name="Brief Requirement" placeholder="Tell us a little about your space and what you're envisioning…"></textarea>
         </div>
 
-        <button type="submit" class="enq-submit">
+        <button type="submit" class="enq-submit" id="enq-submit-btn">
           <span>Send Enquiry</span>
           <span class="enq-submit-arrow">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
@@ -2240,6 +2261,11 @@
         </button>
 
       </form>
+
+      <div id="enq-success" style="display:none; text-align:center; padding: 48px 0;">
+        <p style="font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:400; color:var(--dark); margin-bottom:12px;">Thank you.</p>
+        <p style="font-family:'Jost',sans-serif; font-size:0.95rem; font-weight:300; color:var(--mid); line-height:1.7;">We've received your enquiry and will be in touch shortly.</p>
+      </div>
     </div>
 
   </section>
@@ -2346,7 +2372,16 @@
         });
       });
 
-      startAuto();
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            startAuto();
+            observer.disconnect();
+          }
+        });
+      }, { threshold: 0.3 });
+
+      observer.observe(document.getElementById('process-interactive'));
     })();
 
     // Testimonials carousel
@@ -2356,20 +2391,22 @@
         { text: "They brought a rare combination of aesthetic vision and construction practicality. Our office is a place our team genuinely loves coming to every single day.", name: "Rohan Desai", role: "Founder · Mumbai Office", avatar: "RD", image: "testimonial_2.jpeg" },
         { text: "The process was transparent, timelines were respected, and the final result exceeded our expectations in every way. Truly a studio that listens deeply.", name: "Anjali Shah", role: "Director · Surat Penthouse", avatar: "AS", image: "testimonial_3.webp" }
       ];
+      const slides = document.querySelectorAll('.testi-slide');
       let idx = 0;
       function setTesti() {
         const t = testimonials[idx];
-        ['testiText','testiName','testiRole','testiImg'].forEach(id => {
+        ['testiText','testiName','testiRole'].forEach(id => {
           document.getElementById(id).style.opacity = '0';
         });
+        slides.forEach(s => s.classList.remove('testi-slide--active'));
+        slides[idx].classList.add('testi-slide--active');
         setTimeout(() => {
           document.getElementById('testiText').textContent = t.text;
           document.getElementById('testiName').textContent = t.name;
           document.getElementById('testiRole').textContent = t.role;
           document.getElementById('testiAvatar').textContent = t.avatar;
-          document.getElementById('testiImg').src = t.image;
           document.getElementById('testiCounter').textContent = `${idx + 1} / 3`;
-          ['testiText','testiName','testiRole','testiImg'].forEach(id => {
+          ['testiText','testiName','testiRole'].forEach(id => {
             document.getElementById(id).style.opacity = '1';
           });
         }, 220);
@@ -2377,6 +2414,31 @@
       document.getElementById('testiNext').addEventListener('click', () => { idx = (idx + 1) % 3; setTesti(); });
       document.getElementById('testiPrev').addEventListener('click', () => { idx = (idx + 2) % 3; setTesti(); });
     })();
+
+    // Enquiry form — Web3Forms
+    document.getElementById('enquiry-form').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      const btn = document.getElementById('enq-submit-btn');
+      btn.disabled = true;
+      btn.querySelector('span').textContent = 'Sending…';
+      const data = new FormData(this);
+      try {
+        const res = await fetch('https://api.web3forms.com/submit', { method: 'POST', body: data });
+        const json = await res.json();
+        if (json.success) {
+          document.getElementById('enquiry-form').style.display = 'none';
+          document.getElementById('enq-success').style.display = 'block';
+        } else {
+          btn.disabled = false;
+          btn.querySelector('span').textContent = 'Send Enquiry';
+          alert('Something went wrong. Please try again.');
+        }
+      } catch {
+        btn.disabled = false;
+        btn.querySelector('span').textContent = 'Send Enquiry';
+        alert('Network error. Please try again.');
+      }
+    });
 
     // Hero bg pan
     setTimeout(() => document.getElementById('heroBg').classList.add('loaded'), 80);
