@@ -489,6 +489,7 @@
     .parallax-box-1 { top: -30vh; left:  5vw;    height: 30vh; width: 35vw; }
     .parallax-box-2 { top: -10vh; left: -25vw;   height: 45vh; width: 20vw; }
     .parallax-box-3 { top:   0;   left:  27.5vw; height: 25vh; width: 25vw; }
+    .parallax-box-3 img { object-position: center top; }
     .parallax-box-4 { top:  27.5vh; left: 5vw;   height: 25vh; width: 20vw; }
     .parallax-box-5 { top:  27.5vh; left: -22.5vw; height: 25vh; width: 30vw; }
     .parallax-box-6 { top:  22.5vh; left: 25vw;  height: 15vh; width: 15vw; }
@@ -1655,9 +1656,37 @@
     .footer-icon:hover { color: var(--white); transform: translateY(-2px); }
     .footer-icon svg   { width: 20px; height: 20px; stroke-width: 1.5; }
 
+    .sub-footer {
+      background: #0C0B09;
+      padding: 14px var(--gutter);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.25);
+    }
+    .sub-footer a {
+      color: rgba(255,255,255,0.45);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .sub-footer a:hover { color: var(--orange); }
+
     /* ─── LAPTOP LG (≤ 1280px) ──────────────────────────────── */
     @media (max-width: 1280px) {
       :root { --gutter: 72px; }
+    }
+
+    @media (min-width: 1280px) {
+      .parallax-main-img { object-position: center 80%; }
+      .parallax-img-1    { object-position: center 100%; }
+      .parallax-box-2    { width: 16vw; height: 55vh; padding-bottom: 40px; }
+      .parallax-box-5 img { object-position: center 100%; }
+
+      .projects-grid { grid-template-columns: 7fr 7fr 6fr; grid-template-rows: 500px 120px 180px 300px; }
     }
 
     /* ─── LAPTOP SM (≤ 1100px) ──────────────────────────────── */
@@ -1799,13 +1828,13 @@
         <p class="hero-sub">At Makaan Studio, from architecture to interiors, we create spaces that feel timeless, calm, and deeply human.</p>
         <a href="#enquiry" class="hero-cta">Start a Conversation →</a>
         <div class="hero-socials">
-          <a href="#" aria-label="Instagram">
+          <a href="https://www.instagram.com/makaan.studio" target="_blank" aria-label="Instagram">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
           </a>
-          <a href="#" aria-label="WhatsApp">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+          <a href="https://wa.me/919265750535" target="_blank" aria-label="WhatsApp">
+            <i data-lucide="message-circle"></i>
           </a>
-          <a href="#" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/company/makaanstudio/about/" target="_blank" aria-label="LinkedIn">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
         </div>
@@ -1858,15 +1887,15 @@
   <section id="parallax-section">
     <div class="parallax-sticky">
 
-      <div class="parallax-layer" data-max-scale="4">
+      <div class="parallax-layer" data-max-scale="1.5">
         <div class="parallax-img-box">
-<img loading="eager" src="philosophy/philosophy_main.jpg" alt="Philosophy">
+<img loading="eager" src="philosophy/philosophy_main.jpg" alt="Philosophy" class="parallax-main-img">
         </div>
       </div>
 
       <div class="parallax-layer" data-max-scale="5">
         <div class="parallax-img-box parallax-box-1">
-<img loading="eager" src="philosophy/philosophy_1.jpeg" alt="">
+<img loading="eager" src="philosophy/philosophy_1.jpeg" alt="" class="parallax-img-1">
         </div>
       </div>
 
@@ -2168,7 +2197,7 @@
       <div class="testi-image">
         <img class="testi-slide testi-slide--active" src="testimonial_1.webp" alt="Project" data-index="0">
         <img class="testi-slide" src="testimonial_2.jpeg" alt="Project" data-index="1">
-        <img class="testi-slide" src="testimonial_3.webp" alt="Project" data-index="2">
+        <img class="testi-slide" src="testimonial_3.jpg" alt="Project" data-index="2">
         <span class="testi-counter" id="testiCounter">1 / 3</span>
       </div>
     </div>
@@ -2197,7 +2226,7 @@
           <div class="enq-contact-icon"><i data-lucide="message-circle"></i></div>
           <div>
             <span class="enq-contact-label">WhatsApp</span>
-            <span class="enq-contact-value">+91 00000 00000</span>
+            <a href="https://wa.me/919265750535" target="_blank" class="enq-contact-value">+91 92657 50535</a>
           </div>
         </div>
       </div>
@@ -2280,15 +2309,20 @@
     </div>
 
     <div class="footer-icons">
-      <a href="#" class="footer-icon" aria-label="Instagram">
+      <a href="https://www.instagram.com/makaan.studio" target="_blank" class="footer-icon" aria-label="Instagram">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
           <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
         </svg>
       </a>
-      <a href="#" class="footer-icon" aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>
+      <a href="https://wa.me/919265750535" target="_blank" class="footer-icon" aria-label="WhatsApp"><i data-lucide="message-circle"></i></a>
       <a href="#" class="footer-icon" aria-label="Email"><i data-lucide="mail"></i></a>
     </div>
   </footer>
+
+  <div class="sub-footer">
+    <span>© <span id="copy-year"></span> Makaan Studio. All rights reserved.</span>
+    <span>Made by <a href="https://www.jddigitalweb.in/" target="_blank">JDDigitalWeb</a></span>
+  </div>
 
   <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
   <script>
@@ -2390,7 +2424,7 @@
       const testimonials = [
         { text: "Makaan Studio transformed our space into something that feels spacious, light-filled, and completely ours. Every detail was considered with remarkable care.", name: "Priya Mehta", role: "Homeowner · Surat Residence", avatar: "PM", image: "testimonial_1.webp" },
         { text: "They brought a rare combination of aesthetic vision and construction practicality. Our office is a place our team genuinely loves coming to every single day.", name: "Rohan Desai", role: "Founder · Mumbai Office", avatar: "RD", image: "testimonial_2.jpeg" },
-        { text: "The process was transparent, timelines were respected, and the final result exceeded our expectations in every way. Truly a studio that listens deeply.", name: "Anjali Shah", role: "Director · Surat Penthouse", avatar: "AS", image: "testimonial_3.webp" }
+        { text: "The process was transparent, timelines were respected, and the final result exceeded our expectations in every way. Truly a studio that listens deeply.", name: "Anjali Shah", role: "Director · Surat Penthouse", avatar: "AS", image: "testimonial_3.jpg" }
       ];
       const slides = document.querySelectorAll('.testi-slide');
       let idx = 0;
@@ -2446,6 +2480,7 @@
 
     // Render Lucide icons
     lucide.createIcons();
+    document.getElementById('copy-year').textContent = new Date().getFullYear();
 
     if (CSS.supports('animation-timeline', 'scroll()')) {
         window.addEventListener('load', applyScrollDriven);
