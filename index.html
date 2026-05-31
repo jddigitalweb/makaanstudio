@@ -5,10 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Makaan Studio — Home</title>
+  <link rel="preload" as="image" href="hero.webp">
   <link rel="preload" as="image" href="process/Discovery.jpeg">
   <link rel="preload" as="image" href="process/Design.webp">
   <link rel="preload" as="image" href="process/Site.webp">
-  <link rel="preload" as="video" href="process/Styling.webm" type="video/webm">
   <link rel="preload" as="image" href="philosophy/philosophy_main.jpg">
   <link rel="preload" as="image" href="philosophy/philosophy_1.webp">
   <link rel="preload" as="image" href="philosophy/philosophy_2.webp">
@@ -1800,7 +1800,7 @@
   <!-- ═══ HEADER ═══════════════════════════════════════════════════════ -->
   <header>
     <a href="#" class="logo">
-      <img class="logo-light" src="logo.png"            alt="Makaan Studio">
+      <img class="logo-light" src="logo_white.png"       alt="Makaan Studio">
       <img class="logo-dark"  src="logo_dark.jpg.jpeg"  alt="Makaan Studio">
     </a>
 
@@ -1957,7 +1957,7 @@
 
       <!-- 1 — featured wide image (col 1-2, row 1) -->
       <div class="proj-card proj-1">
-        <img src="projects-1.webp" alt="The House of Harmony">
+        <img src="projects-1.jpg" alt="The House of Harmony">
         <div class="proj-label">
           <span class="proj-name">The House of Harmony</span>
           <span class="proj-loc">Rajhans Golflink, Surat</span>
@@ -1984,7 +1984,7 @@
 
       <!-- 4 — bottom left (col 1, row 3) -->
       <div class="proj-card proj-4">
-        <img src="projects-4.webp" alt="The Display Collective">
+        <img src="projects-4.jpg" alt="The Display Collective">
         <div class="proj-label">
           <span class="proj-name">The Display Collective</span>
           <span class="proj-loc">Bangalore</span>
@@ -2411,6 +2411,7 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             startAuto();
+            fetch('process/Styling.webm');
             observer.disconnect();
           }
         });
