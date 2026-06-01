@@ -465,6 +465,30 @@
       will-change: transform;
     }
 
+    /* translateY parallax base layer — full resolution, no GPU upscaling */
+    @keyframes parallax-drift {
+      0%   { transform: translateY(0%);      opacity: 0; }
+      85%  { transform: translateY(-14.17%); opacity: 1; }
+      100% { transform: translateY(-16.67%); opacity: 1; }
+    }
+    .parallax-main-bg {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+    .parallax-main-bg img {
+      width: 100%;
+      height: 120%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      opacity: 0;
+      transform: translateY(0);
+      will-change: transform, opacity;
+    }
+
     /* Keyframes for each scale variant */
     @keyframes zoom-4 { from { transform: scale(1); } to { transform: scale(4); } }
     @keyframes zoom-5 { from { transform: scale(1); } to { transform: scale(5); } }
@@ -1887,10 +1911,8 @@
   <section id="parallax-section">
     <div class="parallax-sticky">
 
-      <div class="parallax-layer" data-max-scale="4">
-        <div class="parallax-img-box">
-<img loading="eager" src="philosophy/philosophy_main.webp" alt="Philosophy" class="parallax-main-img">
-        </div>
+      <div class="parallax-main-bg" id="parallaxMainBg">
+        <img loading="eager" src="philosophy/philosophy_main.webp" alt="Philosophy" class="parallax-main-img">
       </div>
 
       <div class="parallax-layer" data-max-scale="5">
@@ -2352,6 +2374,18 @@
           layer.style.animationTimeline       = 'scroll(root)';
           layer.style.animationRange          = `${start} ${end}`;
         });
+        const mainBg = document.getElementById('parallaxMainBg');
+        if (mainBg) {
+          const mainImg = mainBg.querySelector('img');
+          if (mainImg) {
+            mainImg.style.animationName           = 'parallax-drift';
+            mainImg.style.animationDuration       = '1ms';
+            mainImg.style.animationTimingFunction = 'linear';
+            mainImg.style.animationFillMode       = 'both';
+            mainImg.style.animationTimeline       = 'scroll(root)';
+            mainImg.style.animationRange          = `${start} ${end}`;
+          }
+        }
       }
 
       // Fallback: rAF loop for browsers without scroll-driven animation support
@@ -2360,6 +2394,8 @@
         let range      = section.offsetHeight - window.innerHeight;
         let current    = 0;
         const scales   = layers.map(l => parseFloat(l.dataset.maxScale) || 4);
+        const mainBg   = document.getElementById('parallaxMainBg');
+        const mainImg  = mainBg ? mainBg.querySelector('img') : null;
 
         function cacheLayout() {
           sectionTop = section.offsetTop;
@@ -2370,6 +2406,10 @@
           current += (t - current) * 0.14;
           for (let i = 0; i < layers.length; i++) {
             layers[i].style.transform = `translate3d(0,0,0) scale(${1 + (scales[i] - 1) * current})`;
+          }
+          if (mainImg) {
+            mainImg.style.transform = `translateY(${(-16.67 * current).toFixed(2)}%)`;
+            mainImg.style.opacity   = Math.min(1, current / 0.85).toFixed(3);
           }
           requestAnimationFrame(tick);
         }
