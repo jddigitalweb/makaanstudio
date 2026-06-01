@@ -465,6 +465,37 @@
       will-change: transform;
     }
 
+    /* Parallax logo overlay */
+    @keyframes parallax-logo-fade {
+      0%   { opacity: 1; }
+      40%  { opacity: 0; }
+      100% { opacity: 0; }
+    }
+    .parallax-logo-overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+      pointer-events: none;
+      will-change: opacity;
+    }
+    .parallax-logo-overlay img {
+      height: 100px;
+      width: auto;
+      display: block;
+    }
+    .parallax-logo-overlay span {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
     /* translateY parallax base layer — full resolution, no GPU upscaling */
     @keyframes parallax-drift {
       0%   { transform: translateY(0%);      opacity: 0; }
@@ -541,7 +572,7 @@
       font-weight: 500;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: var(--mid);
+      color: var(--orange);
       margin-bottom: 44px;
       margin-left: 6px;
       display: block;
@@ -1915,6 +1946,11 @@
         <img loading="eager" src="philosophy/philosophy_main.webp" alt="Philosophy" class="parallax-main-img">
       </div>
 
+      <div class="parallax-logo-overlay" id="parallaxLogoOverlay">
+        <img src="logo_transparent.png" alt="Makaan Studio">
+        <span>What We Stand For</span>
+      </div>
+
       <div class="parallax-layer" data-max-scale="5">
         <div class="parallax-img-box parallax-box-1">
 <img loading="eager" src="philosophy/philosophy_1.jpeg" alt="" class="parallax-img-1">
@@ -1956,7 +1992,6 @@
 
   <!-- ═══ PHILOSOPHY TEXT ══════════════════════════════════════════════ -->
   <section id="philosophy">
-    <img class="phil-logo" src="logo_dark.jpg.jpeg" alt="Makaan Studio">
     <span class="phil-section-label">Our Philosophy</span>
     <p class="phil-quote">
       "<em>Luxury</em>, to us, is not excess.<br>
@@ -2386,6 +2421,15 @@
             mainImg.style.animationRange          = `${start} ${end}`;
           }
         }
+        const logoOverlay = document.getElementById('parallaxLogoOverlay');
+        if (logoOverlay) {
+          logoOverlay.style.animationName           = 'parallax-logo-fade';
+          logoOverlay.style.animationDuration       = '1ms';
+          logoOverlay.style.animationTimingFunction = 'linear';
+          logoOverlay.style.animationFillMode       = 'both';
+          logoOverlay.style.animationTimeline       = 'scroll(root)';
+          logoOverlay.style.animationRange          = `${start} ${end}`;
+        }
       }
 
       // Fallback: rAF loop for browsers without scroll-driven animation support
@@ -2394,8 +2438,9 @@
         let range      = section.offsetHeight - window.innerHeight;
         let current    = 0;
         const scales   = layers.map(l => parseFloat(l.dataset.maxScale) || 4);
-        const mainBg   = document.getElementById('parallaxMainBg');
-        const mainImg  = mainBg ? mainBg.querySelector('img') : null;
+        const mainBg      = document.getElementById('parallaxMainBg');
+        const mainImg     = mainBg ? mainBg.querySelector('img') : null;
+        const logoOverlay = document.getElementById('parallaxLogoOverlay');
 
         function cacheLayout() {
           sectionTop = section.offsetTop;
@@ -2410,6 +2455,9 @@
           if (mainImg) {
             mainImg.style.transform = `translateY(${(-16.67 * current).toFixed(2)}%)`;
             mainImg.style.opacity   = Math.min(1, current / 0.85).toFixed(3);
+          }
+          if (logoOverlay) {
+            logoOverlay.style.opacity = Math.max(0, 1 - current / 0.4).toFixed(3);
           }
           requestAnimationFrame(tick);
         }
