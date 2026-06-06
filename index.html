@@ -1919,7 +1919,7 @@
       .pi-right { display: none; }
 
       /* Founders */
-      .fk-wordmark { font-size: clamp(4rem, 12vw, 7rem); }
+      .fk-wordmark { font-size: clamp(4rem, 12vw, 7rem); padding-top: 20px; }
       .fk-stage { grid-template-columns: 1fr; gap: 32px; margin-top: -16px; }
       .fk-intro { padding: 0; }
       .fk-bios  { grid-template-columns: 1fr; gap: 40px; padding: 48px var(--gutter) 64px; }
@@ -1934,32 +1934,39 @@
 
     /* Mobile testimonial scroll — hidden on desktop */
     .testi-mobile-scroll { display: none; }
+
+    /* ─── MOBILE PHILOSOPHY STACK ──────────────────────────────── */
+    #parallax-mobile { display: none; }
+    @keyframes pms-bob-up   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
+    @keyframes pms-bob-down { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
     /* Process mobile images — hidden on desktop */
     .pi-step-mobile-img { display: none; }
 
     /* ─── TABLET / SMALL (≤ 768px) ─────────────────────────────── */
     @media (max-width: 768px) {
 
-      /* 1. Projects — swipeable carousel */
+      /* 1. Projects — fade carousel */
       #projects .projects-grid {
-        display: flex;
-        overflow-x: scroll;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        scroll-behavior: smooth;
-        gap: 0;
-        scrollbar-width: none;
+        position: relative;
+        display: block;
+        height: 75vw;
         grid-template-columns: unset;
         grid-template-rows: unset;
       }
-      #projects .projects-grid::-webkit-scrollbar { display: none; }
       #projects .proj-card {
-        flex: 0 0 100%;
-        height: 75vw;
-        scroll-snap-align: start;
+        position: absolute;
+        inset: 0;
+        height: 100%;
+        opacity: 0;
+        pointer-events: none;
         grid-column: unset !important;
         grid-row: unset !important;
         border-radius: 12px;
+        transition: opacity 0.6s ease;
+      }
+      #projects .proj-card.proj-active {
+        opacity: 1;
+        pointer-events: all;
       }
       #projects .proj-info { display: none; }
       .proj-carousel-nav {
@@ -2109,6 +2116,49 @@
       :root { --gutter: 24px; }
       header { padding: 18px var(--gutter); }
       header.scrolled { left: 12px; right: 12px; }
+
+      /* Philosophy stack */
+      #parallax-section { display: none; }
+      #parallax-mobile { display: block; height: 600vh; background: var(--white); position: relative; }
+      .pms-sticky {
+        position: sticky; top: 0; height: 100vh;
+        display: flex; align-items: center; justify-content: center;
+        overflow: hidden; background: var(--white);
+      }
+      .pms-title {
+        position: absolute;
+        top: 48px; left: 50%; transform: translateX(-50%);
+        font-family: 'Jost', sans-serif;
+        font-size: 0.9rem; font-weight: 600;
+        letter-spacing: 0.2em; text-transform: uppercase;
+        color: var(--mid); white-space: nowrap;
+      }
+      .pms-stack {
+        position: relative;
+        width: 72vw; height: 62vh;
+        max-width: 300px; max-height: 460px;
+      }
+      .pms-card {
+        position: absolute; inset: 0; width: 100%; height: 100%;
+        border-radius: 20px; overflow: hidden;
+        transition: transform 0.5s cubic-bezier(0.22,1,0.36,1), opacity 0.5s ease, z-index 0s;
+        will-change: transform, opacity;
+        box-shadow: 0 24px 52px rgba(0,0,0,0.16), 0 4px 12px rgba(0,0,0,0.08);
+      }
+      .pms-card img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; user-select: none; -webkit-user-drag: none; }
+      .pms-card-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0.08) 0%, transparent 40%, rgba(0,0,0,0.38) 100%); }
+      .pms-counter { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center; gap: 8px; }
+      .pms-current { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--dark); line-height: 1; }
+      .pms-counter-line { width: 1px; height: 24px; background: rgba(0,0,0,0.18); }
+      .pms-total { font-family: 'Jost', sans-serif; font-size: 0.72rem; color: var(--mid); }
+      .pms-dots { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 7px; align-items: center; }
+      .pms-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.18); border: none; cursor: pointer; transition: height 0.3s cubic-bezier(0.22,1,0.36,1), background 0.3s; padding: 0; }
+      .pms-dot.active { height: 22px; border-radius: 3.5px; background: var(--dark); }
+      .pms-hint { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--mid); }
+      .pms-hint-up   { animation: pms-bob-up   1.5s ease-in-out infinite; }
+      .pms-hint-down { animation: pms-bob-down 1.5s ease-in-out infinite; }
+      .pms-hint-label { font-family: 'Jost', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
+      .pms-hint svg { width: 20px; height: 20px; }
       .hero-inner { padding: 90px var(--gutter) 48px; }
 
       /* Services: single column */
@@ -2279,6 +2329,20 @@
 
     </div>
   </section>
+
+  <!-- ═══ MOBILE PHILOSOPHY STACK (≤560px) ════════════════════════════ -->
+  <div id="parallax-mobile">
+    <div class="pms-sticky">
+      <p class="pms-title">What We Stand For</p>
+      <div class="pms-stack" id="pmsStack"></div>
+      <div class="pms-counter">
+        <span class="pms-current" id="pmsCurrent">01</span>
+        <div class="pms-counter-line"></div>
+        <span class="pms-total">06</span>
+      </div>
+      <div class="pms-dots" id="pmsDots"></div>
+    </div>
+  </div>
 
   <!-- ═══ PHILOSOPHY TEXT ══════════════════════════════════════════════ -->
   <section id="philosophy">
@@ -2462,7 +2526,7 @@
             </div>
             <p class="pi-step-desc">The final layer is where a space truly comes alive. We curate furniture, objects, lighting, and textiles to complete the story and leave a space that feels considered, warm, and entirely yours.</p>
             <div class="pi-step-mobile-img">
-              <video autoplay muted loop playsinline preload="auto"><source src="process/Styling.webm" type="video/webm"></video>
+              <img src="process/Styling.webp" alt="Styling & Experience" style="width:100%;height:100%;object-fit:cover;">
             </div>
           </div>
 
@@ -2474,9 +2538,7 @@
           <img class="pi-img pi-img--active" src="process/Discovery.jpeg" alt="Discovery" data-index="0" style="object-position: center;">
           <img class="pi-img"                src="process/Design.webp"    alt="Design Development"           data-index="1">
           <img class="pi-img"                src="process/Site.webp"      alt="Site & Execution Coordination" data-index="2">
-          <video class="pi-img" data-index="3" autoplay muted loop playsinline preload="auto" style="object-position: center 60%;">
-            <source src="process/Styling.webm" type="video/webm">
-          </video>
+          <img class="pi-img" src="process/Styling.webp" alt="Styling & Experience" data-index="3" style="object-position: center 60%;">
         </div>
       </div>
 
@@ -2758,37 +2820,39 @@
       if (isMobile && grid && dotsEl) {
         const cards = [...grid.querySelectorAll('.proj-card')];
         const total = cards.length;
+        let currentIdx = 0;
         navEl.style.display = 'flex';
         dotsEl.innerHTML = cards.map((_, i) => `<span class="${i===0?'active':''}"></span>`).join('');
         const dots = [...dotsEl.querySelectorAll('span')];
 
         function goTo(i) {
-          const idx = (i + total) % total;
-          grid.scrollTo({ left: grid.clientWidth * idx, behavior: 'smooth' });
+          currentIdx = ((i % total) + total) % total;
+          cards.forEach((c, ci) => c.classList.toggle('proj-active', ci === currentIdx));
+          dots.forEach((d, di) => d.classList.toggle('active', di === currentIdx));
         }
-        function updateDots() {
-          const idx = Math.round(grid.scrollLeft / grid.clientWidth);
-          dots.forEach((d, i) => d.classList.toggle('active', i === idx));
-        }
+
+        // initialise first card
+        goTo(0);
 
         dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); resetAutoplay(); }));
-        prevBtn.addEventListener('click', () => { goTo(Math.round(grid.scrollLeft / grid.clientWidth) - 1); resetAutoplay(); });
-        nextBtn.addEventListener('click', () => { goTo(Math.round(grid.scrollLeft / grid.clientWidth) + 1); resetAutoplay(); });
-        grid.addEventListener('scroll', updateDots, { passive: true });
-        grid.addEventListener('touchstart', () => { clearInterval(projAutoplay); }, { passive: true });
-        grid.addEventListener('touchend', () => { resetAutoplay(); }, { passive: true });
+        prevBtn.addEventListener('click', () => { goTo(currentIdx - 1); resetAutoplay(); });
+        nextBtn.addEventListener('click', () => { goTo(currentIdx + 1); resetAutoplay(); });
 
         function startAutoplay() {
-          projAutoplay = setInterval(() => {
-            const idx = Math.round(grid.scrollLeft / grid.clientWidth);
-            goTo(idx + 1);
-          }, 3500);
+          projAutoplay = setInterval(() => goTo(currentIdx + 1), 3500);
         }
         function resetAutoplay() { clearInterval(projAutoplay); startAutoplay(); }
         startAutoplay();
       } else if (navEl) {
         navEl.style.display = 'none';
         clearInterval(projAutoplay);
+        // restore cards to normal desktop visibility
+        if (grid) grid.querySelectorAll('.proj-card').forEach(c => {
+          c.classList.remove('proj-active');
+          c.style.opacity = '';
+          c.style.pointerEvents = '';
+          c.style.position = '';
+        });
       }
 
       // Mobile testimonial scroll nav
@@ -2929,15 +2993,21 @@
         current = i;
       }
 
+      let prefetched = false;
       function startAuto() {
+        if (timer) return;
         timer = setInterval(() => {
           activate((current + 1) % steps.length);
         }, 3500);
       }
+      function stopAuto() {
+        clearInterval(timer);
+        timer = null;
+      }
 
       steps.forEach((step, i) => {
         step.addEventListener('click', () => {
-          clearInterval(timer);
+          stopAuto();
           activate(i);
           startAuto();
         });
@@ -2947,8 +3017,9 @@
         entries.forEach(entry => {
           if (entry.isIntersecting) {
             startAuto();
-            fetch('process/Styling.webm');
-            observer.disconnect();
+            if (!prefetched) { fetch('process/Styling.webp'); prefetched = true; }
+          } else {
+            stopAuto();
           }
         });
       }, { threshold: 0.3 });
@@ -3027,6 +3098,83 @@
       } else {
         initRaf();
       }
+    })();
+
+    // ─── MOBILE PHILOSOPHY IMAGE STACK (scroll-driven) ──────────
+    (function () {
+      const section = document.getElementById('parallax-mobile');
+      if (!section) return;
+      const srcs = [
+        'philosophy/philosophy_1.jpeg',
+        'philosophy/philosophy_2.webp',
+        'philosophy/philosophy_3.jpg',
+        'philosophy/philosophy_4.jpg',
+        'philosophy/philosophy_5.jpeg',
+        'philosophy/philosophy_6.jpeg',
+      ];
+      const stack  = document.getElementById('pmsStack');
+      const dotsEl = document.getElementById('pmsDots');
+      const currEl = document.getElementById('pmsCurrent');
+      const total  = srcs.length;
+      let idx = 0;
+
+      const cards = srcs.map(src => {
+        const card = document.createElement('div');
+        card.className = 'pms-card';
+        const img = document.createElement('img');
+        img.src = src; img.alt = ''; img.draggable = false;
+        const ov = document.createElement('div');
+        ov.className = 'pms-card-overlay';
+        card.append(img, ov);
+        stack.appendChild(card);
+        return card;
+      });
+
+      const dots = srcs.map((_, i) => {
+        const btn = document.createElement('button');
+        btn.className = 'pms-dot' + (i === 0 ? ' active' : '');
+        btn.setAttribute('aria-label', `Image ${i + 1}`);
+        btn.addEventListener('click', () => {
+          const top  = section.offsetTop;
+          const h    = section.offsetHeight - window.innerHeight;
+          window.scrollTo({ top: top + (i + 0.5) / total * h, behavior: 'smooth' });
+        });
+        dotsEl.appendChild(btn);
+        return btn;
+      });
+
+      function styleFor(diff) {
+        if (diff === 0)  return { y:   0,   s: 1,     o: 1,    z: 10, v: 'visible' };
+        if (diff === -1) return { y: -150,  s: 0.85,  o: 0.55, z: 9,  v: 'visible' };
+        if (diff === -2) return { y: -265,  s: 0.72,  o: 0.25, z: 8,  v: 'visible' };
+        if (diff ===  1) return { y:  150,  s: 0.85,  o: 0.55, z: 9,  v: 'visible' };
+        if (diff ===  2) return { y:  265,  s: 0.72,  o: 0.25, z: 8,  v: 'visible' };
+        return { y: 0, s: 1, o: 0, z: 0, v: 'hidden' };
+      }
+
+      function render() {
+        cards.forEach((card, i) => {
+          const d = i - idx;
+          const { y, s, o, z, v } = styleFor(d);
+          card.style.transform  = `translateY(${y}px) scale(${s})`;
+          card.style.opacity    = o;
+          card.style.zIndex     = z;
+          card.style.visibility = v;
+        });
+        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        currEl.textContent = String(idx + 1).padStart(2, '0');
+      }
+
+      function onScroll() {
+        const top      = section.offsetTop;
+        const range    = section.offsetHeight - window.innerHeight;
+        const progress = Math.max(0, Math.min(1, (window.scrollY - top) / range));
+        const newIdx   = Math.min(total - 1, Math.floor(progress * total));
+        if (newIdx !== idx) { idx = newIdx; render(); }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+      render();
     })();
   </script>
 
