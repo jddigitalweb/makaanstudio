@@ -1920,7 +1920,7 @@
 
       /* Founders */
       .fk-wordmark { font-size: clamp(4rem, 12vw, 7rem); padding-top: 20px; }
-      .fk-stage { grid-template-columns: 1fr; gap: 32px; margin-top: -16px; }
+      .fk-stage { grid-template-columns: 1fr; gap: 32px; margin-top: 0; }
       .fk-intro { padding: 0; }
       .fk-bios  { grid-template-columns: 1fr; gap: 40px; padding: 48px var(--gutter) 64px; }
 
@@ -1949,7 +1949,7 @@
       #projects .projects-grid {
         position: relative;
         display: block;
-        height: 75vw;
+        height: 90vw;
         grid-template-columns: unset;
         grid-template-rows: unset;
       }
@@ -2172,6 +2172,9 @@
       /* Enquiry */
       .enq-card { padding: 28px 20px; }
       .enq-field-row { grid-template-columns: 1fr; }
+
+      /* Reduce gap after mobile philosophy stack */
+      #philosophy { padding-top: 36px; }
     }
   </style>
 </head>
