@@ -1937,8 +1937,6 @@
 
     /* ─── MOBILE PHILOSOPHY STACK ──────────────────────────────── */
     #parallax-mobile { display: none; }
-    @keyframes pms-bob-up   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-7px)} }
-    @keyframes pms-bob-down { 0%,100%{transform:translateY(0)} 50%{transform:translateY(7px)} }
     /* Process mobile images — hidden on desktop */
     .pi-step-mobile-img { display: none; }
 
@@ -2119,19 +2117,20 @@
 
       /* Philosophy stack */
       #parallax-section { display: none; }
-      #parallax-mobile { display: block; height: 600vh; background: var(--white); position: relative; }
-      .pms-sticky {
-        position: sticky; top: 0; height: 100vh;
-        display: flex; align-items: center; justify-content: center;
-        overflow: hidden; background: var(--white);
-      }
+      #parallax-mobile { display: block; background: var(--white); padding: 48px 0 56px; overflow: hidden; }
       .pms-title {
-        position: absolute;
-        top: 48px; left: 50%; transform: translateX(-50%);
         font-family: 'Jost', sans-serif;
         font-size: 0.9rem; font-weight: 600;
         letter-spacing: 0.2em; text-transform: uppercase;
         color: var(--mid); white-space: nowrap;
+        text-align: center; margin-bottom: 28px;
+      }
+      .pms-body {
+        position: relative;
+        display: flex; align-items: center; justify-content: center;
+        width: 100%;
+        height: 80vh; max-height: 580px;
+        overflow: hidden;
       }
       .pms-stack {
         position: relative;
@@ -2141,7 +2140,7 @@
       .pms-card {
         position: absolute; inset: 0; width: 100%; height: 100%;
         border-radius: 20px; overflow: hidden;
-        transition: transform 0.18s ease, opacity 0.18s ease;
+        transition: transform 0.32s cubic-bezier(0.22,1,0.36,1), opacity 0.32s ease;
         will-change: transform, opacity;
         box-shadow: 0 24px 52px rgba(0,0,0,0.16), 0 4px 12px rgba(0,0,0,0.08);
       }
@@ -2151,14 +2150,20 @@
       .pms-current { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; color: var(--dark); line-height: 1; }
       .pms-counter-line { width: 1px; height: 24px; background: rgba(0,0,0,0.18); }
       .pms-total { font-family: 'Jost', sans-serif; font-size: 0.72rem; color: var(--mid); }
-      .pms-dots { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 7px; align-items: center; }
-      .pms-dot { width: 7px; height: 7px; border-radius: 50%; background: rgba(0,0,0,0.18); border: none; cursor: pointer; transition: height 0.3s cubic-bezier(0.22,1,0.36,1), background 0.3s; padding: 0; }
-      .pms-dot.active { height: 22px; border-radius: 3.5px; background: var(--dark); }
-      .pms-hint { position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 3px; color: var(--mid); }
-      .pms-hint-up   { animation: pms-bob-up   1.5s ease-in-out infinite; }
-      .pms-hint-down { animation: pms-bob-down 1.5s ease-in-out infinite; }
-      .pms-hint-label { font-family: 'Jost', sans-serif; font-size: 0.6rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; }
-      .pms-hint svg { width: 20px; height: 20px; }
+      .pms-nav {
+        position: absolute; right: 16px; top: 50%; transform: translateY(-50%);
+        display: flex; flex-direction: column; align-items: center; gap: 10px;
+      }
+      .pms-nav-btn {
+        width: 36px; height: 36px; border-radius: 50%;
+        border: 1.5px solid rgba(0,0,0,0.15);
+        background: var(--white); color: var(--dark);
+        display: flex; align-items: center; justify-content: center;
+        cursor: pointer; font-size: 0.9rem; line-height: 1;
+        transition: background 0.2s, border-color 0.2s, opacity 0.2s;
+      }
+      .pms-nav-btn:active { background: var(--bg-alt); }
+      .pms-nav-btn:disabled { opacity: 0.25; cursor: default; }
       .hero-inner { padding: 90px var(--gutter) 48px; }
 
       /* Services: single column */
@@ -2335,15 +2340,18 @@
 
   <!-- ═══ MOBILE PHILOSOPHY STACK (≤560px) ════════════════════════════ -->
   <div id="parallax-mobile">
-    <div class="pms-sticky">
-      <p class="pms-title">What We Stand For</p>
-      <div class="pms-stack" id="pmsStack"></div>
+    <p class="pms-title">What We Stand For</p>
+    <div class="pms-body">
       <div class="pms-counter">
         <span class="pms-current" id="pmsCurrent">01</span>
         <div class="pms-counter-line"></div>
         <span class="pms-total">06</span>
       </div>
-      <div class="pms-dots" id="pmsDots"></div>
+      <div class="pms-stack" id="pmsStack"></div>
+      <div class="pms-nav">
+        <button class="pms-nav-btn" id="pmsUp" aria-label="Previous" disabled>&#8593;</button>
+        <button class="pms-nav-btn" id="pmsDown" aria-label="Next">&#8595;</button>
+      </div>
     </div>
   </div>
 
@@ -3103,7 +3111,7 @@
       }
     })();
 
-    // ─── MOBILE PHILOSOPHY IMAGE STACK (scroll-driven) ──────────
+    // ─── MOBILE PHILOSOPHY IMAGE STACK (button-driven) ──────────
     (function () {
       const section = document.getElementById('parallax-mobile');
       if (!section) return;
@@ -3116,9 +3124,11 @@
         'philosophy/philosophy_6.jpeg',
       ];
       const stack  = document.getElementById('pmsStack');
-      const dotsEl = document.getElementById('pmsDots');
       const currEl = document.getElementById('pmsCurrent');
+      const upBtn  = document.getElementById('pmsUp');
+      const dnBtn  = document.getElementById('pmsDown');
       const total  = srcs.length;
+      let idx = 0;
 
       const cards = srcs.map(src => {
         const card = document.createElement('div');
@@ -3132,19 +3142,6 @@
         return card;
       });
 
-      const dots = srcs.map((_, i) => {
-        const btn = document.createElement('button');
-        btn.className = 'pms-dot' + (i === 0 ? ' active' : '');
-        btn.setAttribute('aria-label', `Image ${i + 1}`);
-        btn.addEventListener('click', () => {
-          const top  = section.offsetTop;
-          const h    = section.offsetHeight - window.innerHeight;
-          window.scrollTo({ top: top + (i + 0.5) / total * h, behavior: 'smooth' });
-        });
-        dotsEl.appendChild(btn);
-        return btn;
-      });
-
       function styleFor(diff) {
         if (diff === 0)  return { y:   0,  s: 1,    o: 1,    z: 10, v: 'visible' };
         if (diff === -1) return { y: -150, s: 0.85, o: 0.55, z: 9,  v: 'visible' };
@@ -3154,8 +3151,6 @@
         return { y: 0, s: 1, o: 0, z: 0, v: 'hidden' };
       }
 
-      let idx = 0;
-
       function render() {
         cards.forEach((card, i) => {
           const { y, s, o, z, v } = styleFor(i - idx);
@@ -3164,19 +3159,14 @@
           card.style.zIndex     = z;
           card.style.visibility = v;
         });
-        dots.forEach((d, i) => d.classList.toggle('active', i === idx));
         currEl.textContent = String(idx + 1).padStart(2, '0');
+        upBtn.disabled = idx === 0;
+        dnBtn.disabled = idx === total - 1;
       }
 
-      function onScroll() {
-        const top      = section.offsetTop;
-        const range    = section.offsetHeight - window.innerHeight;
-        const progress = Math.max(0, Math.min(1, (window.scrollY - top) / range));
-        const newIdx   = Math.min(total - 1, Math.floor(progress * total));
-        if (newIdx !== idx) { idx = newIdx; render(); }
-      }
+      upBtn.addEventListener('click', () => { if (idx > 0)           { idx--; render(); } });
+      dnBtn.addEventListener('click', () => { if (idx < total - 1)   { idx++; render(); } });
 
-      window.addEventListener('scroll', onScroll, { passive: true });
       render();
     })();
   </script>
