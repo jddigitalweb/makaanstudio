@@ -1472,6 +1472,46 @@
       border-radius: 100px;
     }
 
+    /* ─── INSTAGRAM ─────────────────────────────────────────────── */
+    #instagram {
+      background: var(--bg-alt);
+      padding: 100px var(--gutter) 100px;
+      text-align: center;
+    }
+    .insta-label {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--mid);
+      margin-bottom: 12px;
+    }
+    .insta-heading {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 500;
+      color: var(--dark);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+    .insta-sub {
+      font-family: 'Jost', sans-serif;
+      font-size: 0.95rem;
+      color: var(--mid);
+      margin-bottom: 48px;
+    }
+    .insta-sub a {
+      color: var(--orange);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .insta-sub a:hover { text-decoration: underline; }
+    .insta-widget-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
     /* ─── ENQUIRY ───────────────────────────────────────────────── */
     #enquiry {
       background: var(--bg);
@@ -2614,12 +2654,12 @@
       <div class="testi-m-card">
         <div class="testi-m-img"><img src="testimonial_1.webp" alt="Project"></div>
         <span class="testi-quote-mark">"</span>
-        <p class="testi-m-text">Makaan Studio transformed our space into something that feels spacious, light-filled, and completely ours. Every detail was considered with remarkable care.</p>
+        <p class="testi-m-text">We loved how every corner was thoughtfully designed. Their creativity, detailing, and support throughout the journey made all the difference.</p>
         <div class="testi-divider"></div>
         <div class="testi-m-client">
           <div class="testi-client-info">
-            <div class="testi-avatar">PM</div>
-            <div><div class="testi-name">Priya Mehta</div><div class="testi-role">Homeowner · Surat Residence</div></div>
+            <div class="testi-avatar">AJ</div>
+            <div><div class="testi-name">Anuj &amp; Shaily Jalota</div><div class="testi-role">Residence · Mumbai</div></div>
           </div>
           <div class="testi-nav">
             <button class="testi-btn testi-m-prev" aria-label="Previous">←</button>
@@ -2630,12 +2670,12 @@
       <div class="testi-m-card">
         <div class="testi-m-img"><img src="testimonial_2.jpeg" alt="Project"></div>
         <span class="testi-quote-mark">"</span>
-        <p class="testi-m-text">They brought a rare combination of aesthetic vision and construction practicality. Our office is a place our team genuinely loves coming to every single day.</p>
+        <p class="testi-m-text">Professional, creative, and easy to work with. The final outcome was beyond what we imagined, and we couldn't be happier with our space.</p>
         <div class="testi-divider"></div>
         <div class="testi-m-client">
           <div class="testi-client-info">
-            <div class="testi-avatar">RD</div>
-            <div><div class="testi-name">Rohan Desai</div><div class="testi-role">Founder · Mumbai Office</div></div>
+            <div class="testi-avatar">VP</div>
+            <div><div class="testi-name">Vikram &amp; Pooja Shah</div><div class="testi-role">Residence · Ahmedabad</div></div>
           </div>
           <div class="testi-nav">
             <button class="testi-btn testi-m-prev" aria-label="Previous">←</button>
@@ -2665,14 +2705,14 @@
     <div class="testi-grid">
       <div class="testi-card">
         <span class="testi-quote-mark">"</span>
-        <p class="testi-text" id="testiText">Makaan Studio transformed our space into something that feels spacious, light-filled, and completely ours. Every detail was considered with remarkable care.</p>
+        <p class="testi-text" id="testiText">We loved how every corner was thoughtfully designed. Their creativity, detailing, and support throughout the journey made all the difference.</p>
         <div class="testi-divider"></div>
         <div class="testi-client">
-          <div class="testi-client-info">
-            <div class="testi-avatar" id="testiAvatar">PM</div>
+          <div class="testi-client-info" id="testiClientInfo">
+            <div class="testi-avatar" id="testiAvatar">AJ</div>
             <div>
-              <div class="testi-name" id="testiName">Priya Mehta</div>
-              <div class="testi-role" id="testiRole">Homeowner · Surat Residence</div>
+              <div class="testi-name" id="testiName">Anuj &amp; Shaily Jalota</div>
+              <div class="testi-role" id="testiRole">Residence · Mumbai</div>
             </div>
           </div>
           <div class="testi-nav">
@@ -2688,6 +2728,17 @@
         <span class="testi-counter" id="testiCounter">1 / 3</span>
       </div>
     </div><!-- end .testi-grid -->
+  </section>
+
+  <!-- ═══ INSTAGRAM ══════════════════════════════════════════════════════ -->
+  <section id="instagram">
+    <p class="insta-label">Follow Along</p>
+    <h2 class="insta-heading">On Instagram</h2>
+    <p class="insta-sub"><a href="https://www.instagram.com/makaan.studio" target="_blank">@makaan.studio</a></p>
+    <div class="insta-widget-wrap">
+      <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
+      <iframe src="//lightwidget.com/widgets/822cee43847e5071973abc313f1f42a1.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:100%;border:0;overflow:hidden;"></iframe>
+    </div>
   </section>
 
   <!-- ═══ ENQUIRY ════════════════════════════════════════════════════════ -->
@@ -3043,8 +3094,8 @@
     // Testimonials carousel
     (function () {
       const testimonials = [
-        { text: "Makaan Studio transformed our space into something that feels spacious, light-filled, and completely ours. Every detail was considered with remarkable care.", name: "Priya Mehta", role: "Homeowner · Surat Residence", avatar: "PM", image: "testimonial_1.webp" },
-        { text: "They brought a rare combination of aesthetic vision and construction practicality. Our office is a place our team genuinely loves coming to every single day.", name: "Rohan Desai", role: "Founder · Mumbai Office", avatar: "RD", image: "testimonial_2.jpeg" },
+        { text: "We loved how every corner was thoughtfully designed. Their creativity, detailing, and support throughout the journey made all the difference.", name: "Anuj & Shaily Jalota", role: "Residence · Mumbai", avatar: "AJ", image: "testimonial_1.webp" },
+        { text: "Professional, creative, and easy to work with. The final outcome was beyond what we imagined, and we couldn't be happier with our space.", name: "Vikram & Pooja Shah", role: "Residence · Ahmedabad", avatar: "VP", image: "testimonial_2.jpeg" },
         { text: "The process was transparent, timelines were respected, and the final result exceeded our expectations in every way. Truly a studio that listens deeply.", name: "Anjali Shah", role: "Director · Surat Penthouse", avatar: "AS", image: "testimonial_3.jpg" }
       ];
       const slides = document.querySelectorAll('.testi-slide');
