@@ -1,3 +1,7 @@
 .claude/
 temporary screenshots/
 index_temp.html
+node_modules/
+package.json
+package-lock.json
+*.tmp.*

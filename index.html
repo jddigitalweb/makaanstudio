@@ -2381,7 +2381,10 @@
 
       <!-- 1 — featured wide image (col 1-2, row 1) -->
       <div class="proj-card proj-1">
-        <img src="projects-1.jpg" alt="The House of Harmony">
+        <picture>
+          <source media="(max-width: 768px)" srcset="projects-1-mobile.jpg">
+          <img src="projects-1.jpg" alt="The House of Harmony">
+        </picture>
         <div class="proj-label">
           <span class="proj-name">The House of Harmony</span>
           <span class="proj-loc">Rajhans Golflink, Surat</span>
@@ -2390,7 +2393,10 @@
 
       <!-- 2 — tall right image (col 3, rows 1-2) -->
       <div class="proj-card proj-2">
-        <img src="projects-2.jpg" alt="Sukoon">
+        <picture>
+          <source media="(max-width: 768px)" srcset="projects-2-mobile.jpg">
+          <img src="projects-2.jpg" alt="Sukoon">
+        </picture>
         <div class="proj-label">
           <span class="proj-name">Sukoon</span>
           <span class="proj-loc">Malad, Mumbai</span>
@@ -2539,7 +2545,7 @@
             </div>
             <p class="pi-step-desc">The final layer is where a space truly comes alive. We curate furniture, objects, lighting, and textiles to complete the story and leave a space that feels considered, warm, and entirely yours.</p>
             <div class="pi-step-mobile-img">
-              <img src="process/Styling.webp" alt="Styling & Experience" style="width:100%;height:100%;object-fit:cover;">
+              <img src="process/styling-mobile.jpeg" alt="Styling & Experience" style="width:100%;height:100%;object-fit:cover;display:block;">
             </div>
           </div>
 
@@ -2634,8 +2640,8 @@
         <div class="testi-divider"></div>
         <div class="testi-m-client">
           <div class="testi-client-info">
-            <div class="testi-avatar">VP</div>
-            <div><div class="testi-name">Vikram &amp; Pooja Shah</div><div class="testi-role">Residence · Ahmedabad</div></div>
+            <div class="testi-avatar">TK</div>
+            <div><div class="testi-name">Tanishka Kedia</div><div class="testi-role">Residence · Surat</div></div>
           </div>
           <div class="testi-nav">
             <button class="testi-btn testi-m-prev" aria-label="Previous">←</button>
@@ -3044,7 +3050,7 @@
     (function () {
       const testimonials = [
         { text: "We loved how every corner was thoughtfully designed. Their creativity, detailing, and support throughout the journey made all the difference.", name: "Anuj & Shaily Jalota", role: "Residence · Mumbai", avatar: "AJ", image: "testimonial_1.webp" },
-        { text: "Professional, creative, and easy to work with. The final outcome was beyond what we imagined, and we couldn't be happier with our space.", name: "Vikram & Pooja Shah", role: "Residence · Ahmedabad", avatar: "VP", image: "testimonial_2.jpeg" },
+        { text: "Professional, creative, and easy to work with. The final outcome was beyond what we imagined, and we couldn't be happier with our space.", name: "Tanishka Kedia", role: "Residence · Surat", avatar: "TK", image: "testimonial_2.jpeg" },
         { text: "The process was transparent, timelines were respected, and the final result exceeded our expectations in every way. Truly a studio that listens deeply.", name: "Anjali Shah", role: "Director · Surat Penthouse", avatar: "AS", image: "testimonial_3.jpg" }
       ];
       const slides = document.querySelectorAll('.testi-slide');
@@ -3118,7 +3124,7 @@
       const section = document.getElementById('parallax-mobile');
       if (!section) return;
       const srcs = [
-        'philosophy/philosophy_1.jpeg',
+        'philosophy/philosophy-1-mobile.jpeg',
         'philosophy/philosophy_2.webp',
         'philosophy/philosophy_3.jpg',
         'philosophy/philosophy_4.jpg',
