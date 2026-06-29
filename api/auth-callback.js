@@ -13,6 +13,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
+    // Step 1: Exchange code for short-lived token
     const form = new URLSearchParams({
       client_id: process.env.INSTAGRAM_APP_ID,
       client_secret: process.env.INSTAGRAM_APP_SECRET,
@@ -29,23 +30,23 @@ module.exports = async function handler(req, res) {
     const shortData = await shortRes.json()
 
     if (!shortData.access_token) {
-      return res.status(500).send(`Failed to get token: ${JSON.stringify(shortData)}`)
+      return res.status(500).send(`Failed to get short-lived token: ${JSON.stringify(shortData)}`)
     }
 
     // Store user_id from short-lived token response
-    await redis.set('instagram_user_id', shortData.user_id)
+    await redis.set('instagram_user_id', String(shortData.user_id))
 
-    // Try long-lived token exchange
+    // Step 2: Exchange for long-lived token via graph.facebook.com
     const longRes = await fetch(
-      `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.INSTAGRAM_APP_SECRET}&access_token=${shortData.access_token}`
+      `https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=${process.env.INSTAGRAM_APP_ID}&client_secret=${process.env.INSTAGRAM_APP_SECRET}&fb_exchange_token=${shortData.access_token}`
     )
     const longData = await longRes.json()
 
     if (!longData.access_token) {
-      await redis.set('instagram_token', shortData.access_token)
-    } else {
-      await redis.set('instagram_token', longData.access_token)
+      return res.status(500).send(`Failed to get long-lived token: ${JSON.stringify(longData)}`)
     }
+
+    await redis.set('instagram_token', longData.access_token)
 
     res.send(`
       <html><body style="font-family:sans-serif;text-align:center;padding:60px">
