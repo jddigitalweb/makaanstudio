@@ -33,25 +33,22 @@ module.exports = async function handler(req, res) {
       return res.status(500).send(`Failed to get short-lived token: ${JSON.stringify(shortData)}`)
     }
 
-    // Store user_id from short-lived token response
     await redis.set('instagram_user_id', String(shortData.user_id))
 
-    // Step 2: Exchange for long-lived token via graph.facebook.com
-    const longRes = await fetch(
-      `https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=${process.env.INSTAGRAM_APP_ID}&client_secret=${process.env.INSTAGRAM_APP_SECRET}&fb_exchange_token=${shortData.access_token}`
-    )
-    const longData = await longRes.json()
+    // Step 2: Try long-lived exchange and show full response
+    const longUrl = `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.INSTAGRAM_APP_SECRET}&access_token=${shortData.access_token}`
+    const longRes = await fetch(longUrl)
+    const longText = await longRes.text()
 
-    if (!longData.access_token) {
-      return res.status(500).send(`Failed to get long-lived token: ${JSON.stringify(longData)}`)
-    }
-
-    await redis.set('instagram_token', longData.access_token)
-
-    res.send(`
-      <html><body style="font-family:sans-serif;text-align:center;padding:60px">
-        <h2>✅ Instagram connected successfully!</h2>
-        <p>You can close this tab. The feed will appear on the site shortly.</p>
+    // Show everything on screen for debugging
+    return res.send(`
+      <html><body style="font-family:monospace;padding:40px">
+        <h3>Short-lived token received ✅</h3>
+        <p>user_id: ${shortData.user_id}</p>
+        <p>token prefix: ${shortData.access_token.substring(0, 20)}...</p>
+        <hr/>
+        <h3>Long-lived token exchange response:</h3>
+        <pre>${longText}</pre>
       </body></html>
     `)
   } catch (err) {
