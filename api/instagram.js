@@ -7,14 +7,13 @@ const redis = new Redis({
 
 const FIELDS = 'id,media_url,permalink,media_type,thumbnail_url,timestamp'
 const LIMIT = 12
-const CACHE_TTL = 3600 // 1 hour
+const CACHE_TTL = 3600
 
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*')
   res.setHeader('Cache-Control', 'public, s-maxage=3600')
 
   try {
-    // Serve from cache if available
     const cached = await redis.get('instagram_posts')
     if (cached) {
       return res.json(cached)
@@ -25,13 +24,26 @@ module.exports = async function handler(req, res) {
       return res.status(503).json({ error: 'Instagram not connected yet' })
     }
 
+    // First get the user ID
+    const userRes = await fetch(
+      `https://graph.instagram.com/v22.0/me?fields=id&access_token=${token}`
+    )
+    const userData = await userRes.json()
+
+    if (userData.error) {
+      return res.status(500).json({ error: userData.error.message, detail: userData.error })
+    }
+
+    const userId = userData.id
+
+    // Then fetch media using the user ID
     const response = await fetch(
-      `https://graph.instagram.com/v22.0/me/media?fields=${FIELDS}&limit=${LIMIT}&access_token=${token}`
+      `https://graph.instagram.com/v22.0/${userId}/media?fields=${FIELDS}&limit=${LIMIT}&access_token=${token}`
     )
     const data = await response.json()
 
     if (data.error) {
-      return res.status(500).json({ error: data.error.message })
+      return res.status(500).json({ error: data.error.message, detail: data.error })
     }
 
     await redis.setex('instagram_posts', CACHE_TTL, data)
