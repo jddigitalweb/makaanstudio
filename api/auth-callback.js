@@ -29,26 +29,31 @@ module.exports = async function handler(req, res) {
     })
     const shortData = await shortRes.json()
 
-    if (!shortData.access_token) {
+    // New API returns token inside data array
+    const tokenData = shortData.data ? shortData.data[0] : shortData
+
+    if (!tokenData.access_token) {
       return res.status(500).send(`Failed to get short-lived token: ${JSON.stringify(shortData)}`)
     }
 
-    await redis.set('instagram_user_id', String(shortData.user_id))
+    await redis.set('instagram_user_id', String(tokenData.user_id))
 
-    // Step 2: Try long-lived exchange and show full response
-    const longUrl = `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.INSTAGRAM_APP_SECRET}&access_token=${shortData.access_token}`
-    const longRes = await fetch(longUrl)
-    const longText = await longRes.text()
+    // Step 2: Exchange for long-lived token
+    const longRes = await fetch(
+      `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.INSTAGRAM_APP_SECRET}&access_token=${tokenData.access_token}`
+    )
+    const longData = await longRes.json()
 
-    // Show everything on screen for debugging
-    return res.send(`
-      <html><body style="font-family:monospace;padding:40px">
-        <h3>Short-lived token received ✅</h3>
-        <p>user_id: ${shortData.user_id}</p>
-        <p>token prefix: ${shortData.access_token.substring(0, 20)}...</p>
-        <hr/>
-        <h3>Long-lived token exchange response:</h3>
-        <pre>${longText}</pre>
+    if (!longData.access_token) {
+      return res.status(500).send(`Failed to get long-lived token: ${JSON.stringify(longData)}`)
+    }
+
+    await redis.set('instagram_token', longData.access_token)
+
+    res.send(`
+      <html><body style="font-family:sans-serif;text-align:center;padding:60px">
+        <h2>✅ Instagram connected successfully!</h2>
+        <p>You can close this tab. The feed will appear on the site shortly.</p>
       </body></html>
     `)
   } catch (err) {
