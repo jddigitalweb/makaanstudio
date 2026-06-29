@@ -24,9 +24,9 @@ module.exports = async function handler(req, res) {
       return res.status(503).json({ error: 'Instagram not connected yet' })
     }
 
-    // First get the user ID
+    // Get user ID
     const userRes = await fetch(
-      `https://graph.instagram.com/v22.0/me?fields=id&access_token=${token}`
+      `https://graph.instagram.com/me?fields=id&access_token=${token}`
     )
     const userData = await userRes.json()
 
@@ -36,9 +36,9 @@ module.exports = async function handler(req, res) {
 
     const userId = userData.id
 
-    // Then fetch media using the user ID
+    // Fetch media using user ID
     const response = await fetch(
-      `https://graph.instagram.com/v22.0/${userId}/media?fields=${FIELDS}&limit=${LIMIT}&access_token=${token}`
+      `https://graph.instagram.com/${userId}/media?fields=${FIELDS}&limit=${LIMIT}&access_token=${token}`
     )
     const data = await response.json()
 
