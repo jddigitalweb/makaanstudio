@@ -13,7 +13,7 @@ module.exports = async function handler(req, res) {
   }
 
   try {
-    // Step 1: Exchange code for short-lived token (1 hour)
+    // Step 1: Exchange code for short-lived token
     const form = new URLSearchParams({
       client_id: process.env.INSTAGRAM_APP_ID,
       client_secret: process.env.INSTAGRAM_APP_SECRET,
@@ -33,25 +33,23 @@ module.exports = async function handler(req, res) {
       return res.status(500).send(`Failed to get token: ${JSON.stringify(shortData)}`)
     }
 
-    // Step 2: Exchange short-lived for long-lived token (60 days)
-    const longForm = new URLSearchParams({
-      grant_type: 'ig_exchange_token',
-      client_secret: process.env.INSTAGRAM_APP_SECRET,
-      access_token: shortData.access_token,
-    })
-
-    const longRes = await fetch('https://graph.instagram.com/oauth/access_token', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: longForm.toString(),
-    })
-    const longData = await longRes.json()
+    // Step 2: Exchange for long-lived token using GET
+    const longRes = await fetch(
+      `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.INSTAGRAM_APP_SECRET}&access_token=${shortData.access_token}`,
+      { method: 'GET' }
+    )
+    const longText = await longRes.text()
+    console.log('Long-lived token response:', longText)
+    const longData = JSON.parse(longText)
 
     if (!longData.access_token) {
-      return res.status(500).send(`Failed to get long-lived token: ${JSON.stringify(longData)}`)
+      // Fall back to storing short-lived token if exchange fails
+      await redis.set('instagram_token', shortData.access_token)
+      console.log('Stored short-lived token as fallback')
+    } else {
+      await redis.set('instagram_token', longData.access_token)
+      console.log('Stored long-lived token')
     }
-
-    await redis.set('instagram_token', longData.access_token)
 
     res.send(`
       <html><body style="font-family:sans-serif;text-align:center;padding:60px">
