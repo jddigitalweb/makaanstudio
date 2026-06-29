@@ -20,25 +20,14 @@ module.exports = async function handler(req, res) {
     }
 
     const token = await redis.get('instagram_token')
-    if (!token) {
+    const userId = await redis.get('instagram_user_id')
+
+    if (!token || !userId) {
       return res.status(503).json({ error: 'Instagram not connected yet' })
     }
 
-    // Get user ID
-    const userRes = await fetch(
-      `https://graph.instagram.com/me?fields=id&access_token=${token}`
-    )
-    const userData = await userRes.json()
-
-    if (userData.error) {
-      return res.status(500).json({ error: userData.error.message, detail: userData.error })
-    }
-
-    const userId = userData.id
-
-    // Fetch media using user ID
     const response = await fetch(
-      `https://graph.instagram.com/${userId}/media?fields=${FIELDS}&limit=${LIMIT}&access_token=${token}`
+      `https://graph.instagram.com/v22.0/${userId}/media?fields=${FIELDS}&limit=${LIMIT}&access_token=${token}`
     )
     const data = await response.json()
 
