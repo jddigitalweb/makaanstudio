@@ -27,7 +27,7 @@ module.exports = async function handler(req, res) {
     }
 
     const response = await fetch(
-      `https://graph.facebook.com/v22.0/${userId}/media?fields=${FIELDS}&limit=${LIMIT}&access_token=${token}`
+      `https://graph.instagram.com/v22.0/${userId}/media?fields=${FIELDS}&limit=${LIMIT}&access_token=${token}`
     )
     const data = await response.json()
 
