@@ -35,8 +35,7 @@ module.exports = async function handler(req, res) {
 
     // Step 2: Exchange short-lived for long-lived token (60 days)
     const longRes = await fetch(
-  `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.INSTAGRAM_APP_SECRET}&access_token=${shortData.access_token}`,
-  { method: 'GET' }
+  `https://graph.instagram.com/access_token?grant_type=ig_exchange_token&client_secret=${process.env.INSTAGRAM_APP_SECRET}&access_token=${shortData.access_token}`
 )
     const longData = await longRes.json()
 
